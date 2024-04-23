@@ -1,0 +1,63 @@
+openapi: 3.0.3  # Версия спецификации OpenAPI, используемая в файле
+
+info:
+  title: Car info  # Название API
+  version: 0.0.1   # Версия API
+
+paths:
+  /info:  # Путь к эндпоинту для получения информации о машине
+    get:
+      parameters:
+        - name: regNum   # Параметр запроса - регистрационный номер машины
+          in: query      # Параметр передается в качестве запроса
+          required: true  # Этот параметр обязателен для запроса
+          schema:
+            type: string  # Тип данных параметра - строка
+      responses:
+        '200':
+          description: Ok  # Описание успешного ответа
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'  # Схема успешного ответа - ссылка на схему Car
+        '400':
+          description: Bad request  # Описание ошибки запроса
+        '500':
+          description: Internal server error  # Описание ошибки сервера
+
+components:
+  schemas:
+    Car:  # Схема данных для машины
+      required:
+        - regNum  # Регистрационный номер обязателен для машины
+        - mark    # Марка обязательна для машины
+        - model   # Модель обязательна для машины
+        - owner   # Владелец обязателен для машины
+      type: object  # Тип данных - объект
+      properties:
+        regNum:
+          type: string   # Тип данных для регистрационного номера - строка
+          example: X123XX150  # Пример регистрационного номера
+        mark:
+          type: string   # Тип данных для марки - строка
+          example: Lada   # Пример марки
+        model:
+          type: string   # Тип данных для модели - строка
+          example: Vesta  # Пример модели
+        year:
+          type: integer  # Тип данных для года - целое число
+          example: 2002   # Пример года
+        owner:
+          $ref: '#/components/schemas/People'  # Ссылка на схему People для владельца машины
+    People:  # Схема данных для человека (владельца машины)
+      required:
+        - name      # Имя обязательно для человека
+        - surname   # Фамилия обязательна для человека
+      type: object  # Тип данных - объект
+      properties:
+        name:
+          type: string  # Тип данных для имени - строка
+        surname:
+          type: string  # Тип данных для фамилии - строка
+        patronymic:
+          type: string  # Тип данных для отчества - строка

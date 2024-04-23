@@ -1,0 +1,10 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact:
+    name: API Support
+  description: API server for Cars Catalog
+  title: Cars Catalog API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
